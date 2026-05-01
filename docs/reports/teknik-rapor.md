@@ -216,6 +216,14 @@ Toplam: 6/6 geçti. Süre: ~112 ms
 - Proje derleme sırasında hata veya uyarı olmadan tamamlandı
 - Varsayılan template dosyaları (WeatherForecast) temiz bir başlangıç için silinmiştir
 
+## Bilinen Sorunlar / Notlar
+
+### Swashbuckle Versiyon Çakışması (Çözüldü)
+- Sorun: Swashbuckle.AspNetCore 10.1.7 + Microsoft.AspNetCore.OpenApi 9.0.6 çakışması → runtime TypeLoadException
+- Çözüm: Swashbuckle 6.9.0'a downgrade + Microsoft.AspNetCore.OpenApi kaldırıldı
+- Program.cs: Microsoft.OpenApi.Models namespace'i ile 6.x uyumlu Swagger yapılandırması
+- Commit: 4b365b6
+
 ## Proje Tamamlama Özeti
 
 | Bileşen | Durum |

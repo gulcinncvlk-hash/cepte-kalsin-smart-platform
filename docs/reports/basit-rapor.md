@@ -4,6 +4,9 @@ Bu rapor, yazılımcı olmayan ekip üyelerine projedeki ilerlemeden basit ve an
 
 ## Son Task Özeti
 
+### Swagger Versiyon Sorunu Çözüldü ✅
+Uygulama başlatılırken bir araç uyumsuzluğu hatası çıktı. Swagger kütüphanesinin sürümü düşürülerek sorun giderildi. Uygulama artık başlatılabilir durumda.
+
 ### Task 10 — Proje Tamamlandı! ✅
 Tüm kodlar yazıldı ve test edildi. Uygulama artık başlatılmaya hazır. SQL Server veritabanı bağlantısı sağlandığında Swagger arayüzünden gerçek testler yapılabilecek.
 
