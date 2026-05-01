@@ -9,7 +9,7 @@
 | Task 3: Model Sınıfları | ✅ Tamamlandı | 2026-05-01 |
 | Task 4: IAuthService Arayüzü | ✅ Tamamlandı | 2026-05-01 |
 | Task 5: Program.cs Yapılandırması | ✅ Tamamlandı | 2026-05-01 |
-| Task 6: Register Endpoint (TDD) | ⏳ Başlanmadı | - |
+| Task 6: Register Endpoint (TDD) | ✅ Tamamlandı | 2026-05-01 |
 | Task 7: Login Endpoint (TDD) | ⏳ Başlanmadı | - |
 | Task 8: Me Endpoint (TDD) | ⏳ Başlanmadı | - |
 | Task 9: AuthService SQL Implementasyonu | ⏳ Başlanmadı | - |
@@ -67,6 +67,13 @@
 - Commit hash: c2e6541
 - Not: Swashbuckle 10.x / Microsoft.OpenApi 2.x uyumluluğu için namespace güncellendi (`Microsoft.OpenApi.Models` → `Microsoft.OpenApi`), `AddSecurityRequirement` yeni imzayla (Func<OpenApiDocument, OpenApiSecurityRequirement>) ve `OpenApiSecuritySchemeReference` kullanıldı
 
+### Task 6: Test Projesi + Register Endpoint (TDD) ✅
+- Tarih: 2026-05-01
+- Oluşturulan: TazeKalsin.Tests/AuthControllerTests.cs, TazeKalsin.API/Controllers/AuthController.cs
+- Test sonuçları: Register_SifreCokKisa_400Doner ✅, Register_EmailZatenVar_409Doner ✅, Register_GecerliIstek_201Doner ✅
+- Moq sürümü: 4.20.72
+- Commit hash: d2e044d
+
 ### Task 4: IAuthService Arayüzü ve AuthService İskeleti ✅
 - **Tarih:** 2026-05-01
 - **Oluşturulan dosyalar:**
@@ -93,7 +100,8 @@ C:\Users\user\Desktop\tazekalsin\
 │   ├── appsettings.Development.json
 │   ├── Properties/
 │   │   └── launchSettings.json
-│   ├── Controllers/ (boş, örnek controller silinmiş)
+│   ├── Controllers/
+│   │   └── AuthController.cs
 │   ├── Models/
 │   │   ├── RegisterRequest.cs
 │   │   ├── LoginRequest.cs
@@ -101,6 +109,9 @@ C:\Users\user\Desktop\tazekalsin\
 │   │   └── TuketiciDto.cs
 │   ├── bin/Debug/net9.0/ (derlenmiş dosyalar)
 │   └── obj/ (derlenmiş ara dosyalar)
+├── TazeKalsin.Tests/
+│   ├── TazeKalsin.Tests.csproj
+│   └── AuthControllerTests.cs
 ├── docs/
 │   └── reports/
 │       └── teknik-rapor.md (bu dosya)
@@ -128,10 +139,20 @@ C:\Users\user\Desktop\tazekalsin\
 - **Errors:** 0
 - **Warnings:** 0
 
+## Test Sonuçları
+
+| Test Adı | Durum |
+|----------|-------|
+| Register_SifreCokKisa_400Doner | ✅ Passed |
+| Register_EmailZatenVar_409Doner | ✅ Passed |
+| Register_GecerliIstek_201Doner | ✅ Passed |
+
+Toplam: 3/3 geçti. Süre: ~492 ms
+
 ## Kaldığımız Yer
 
-- **Son Tamamlanan:** Task 5 - Program.cs Yapılandırması
-- **Sıradaki:** Task 6 - Register Endpoint (TDD)
+- **Son Tamamlanan:** Task 6 - Register Endpoint (TDD)
+- **Sıradaki:** Task 7 - Login Endpoint (TDD)
 
 ## Notlar
 

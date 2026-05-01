@@ -4,6 +4,9 @@ Bu rapor, yazılımcı olmayan ekip üyelerine projedeki ilerlemeden basit ve an
 
 ## Son Task Özeti
 
+### Task 6 — Kayıt Endpoint'i ve Testler Eklendi ✅
+"Kayıt ol" özelliği yazıldı. Önce testler yazıldı (TDD yöntemi) — yani önce "ne bekliyoruz" tanımlandı, sonra kod yazıldı. 3 test: kısa şifre reddi, mevcut email reddi, başarılı kayıt. Hepsi geçti.
+
 ### Task 5 — Uygulama Ayarları Tamamlandı ✅
 Uygulamanın nasıl başlayacağı ve hangi güvenlik kurallarını uygulayacağı yapılandırıldı. JWT token doğrulama sistemi aktif edildi. Swagger test arayüzü de token ile çalışacak şekilde ayarlandı.
 
@@ -53,8 +56,8 @@ Bilgisayarda "TazeKalsin.API" adında bir yazılım projesi açıldı. İçine �
 
 ## Kaldığımız Yer
 
-- **Son adım:** Task 5 tamamlandı
-- **Bir sonraki adım:** Task 6 (test projesi ve kayıt endpoint'i)
+- **Son adım:** Task 6 tamamlandı
+- **Bir sonraki adım:** Task 7 (giriş endpoint'i)
 
 ## Zaman Çizelgesi
 
@@ -64,6 +67,7 @@ Bilgisayarda "TazeKalsin.API" adında bir yazılım projesi açıldı. İçine �
 - **Task 3 Tamamlanma:** 2026-05-01
 - **Task 4 Tamamlanma:** 2026-05-01
 - **Task 5 Tamamlanma:** 2026-05-01
+- **Task 6 Tamamlanma:** 2026-05-01
 
 ---
 
