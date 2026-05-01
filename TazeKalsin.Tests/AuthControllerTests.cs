@@ -67,4 +67,30 @@ public class AuthControllerTests
         Assert.IsType<ObjectResult>(result);
         Assert.Equal(201, ((ObjectResult)result).StatusCode);
     }
+
+    [Fact]
+    public async Task Login_YanlisKimlik_401Doner()
+    {
+        _mockService.Setup(s => s.GirisYap(It.IsAny<LoginRequest>()))
+            .ReturnsAsync((AuthResponse?)null);
+
+        var request = new LoginRequest { Email = "yok@test.com", Sifre = "YanlisPass1" };
+
+        var result = await _controller.Login(request);
+
+        Assert.IsType<UnauthorizedObjectResult>(result);
+    }
+
+    [Fact]
+    public async Task Login_DogruKimlik_200Doner()
+    {
+        _mockService.Setup(s => s.GirisYap(It.IsAny<LoginRequest>()))
+            .ReturnsAsync(new AuthResponse { Token = "jwt-token", Ad_Soyad = "Test", Email = "test@test.com" });
+
+        var request = new LoginRequest { Email = "test@test.com", Sifre = "Dogru1234" };
+
+        var result = await _controller.Login(request);
+
+        Assert.IsType<OkObjectResult>(result);
+    }
 }

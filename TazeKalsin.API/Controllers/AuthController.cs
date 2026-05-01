@@ -31,8 +31,14 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login")]
-    public Task<IActionResult> Login([FromBody] LoginRequest request)
-        => throw new NotImplementedException();
+    public async Task<IActionResult> Login([FromBody] LoginRequest request)
+    {
+        var response = await _authService.GirisYap(request);
+        if (response == null)
+            return Unauthorized(new { message = "Email veya şifre hatalı." });
+
+        return Ok(response);
+    }
 
     [Authorize]
     [HttpGet("me")]
