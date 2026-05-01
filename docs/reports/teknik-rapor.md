@@ -10,8 +10,8 @@
 | Task 4: IAuthService Arayüzü | ✅ Tamamlandı | 2026-05-01 |
 | Task 5: Program.cs Yapılandırması | ✅ Tamamlandı | 2026-05-01 |
 | Task 6: Register Endpoint (TDD) | ✅ Tamamlandı | 2026-05-01 |
-| Task 7: Login Endpoint (TDD) | ⏳ Başlanmadı | - |
-| Task 8: Me Endpoint (TDD) | ⏳ Başlanmadı | - |
+| Task 7: Login Endpoint (TDD) | ✅ Tamamlandı | 2026-05-01 |
+| Task 8: Me Endpoint (TDD) | ✅ Tamamlandı | 2026-05-01 |
 | Task 9: AuthService SQL Implementasyonu | ⏳ Başlanmadı | - |
 | Task 10: Swagger Uçtan Uca Test | ⏳ Başlanmadı | - |
 
@@ -74,6 +74,13 @@
 - Moq sürümü: 4.20.72
 - Commit hash: d2e044d
 
+### Task 7: Login Endpoint (TDD) ✅
+- Tarih: 2026-05-01
+- Test sonuçları: Login_YanlisKimlik_401Doner ✅, Login_DogruKimlik_200Doner ✅
+- Toplam test sayısı: 6/6 geçti (Register 3 + Login 2 + 1 ek)
+- Implementation: AuthController.Login() async metod, GirisYap servis çağrısı, null response → 401, başarılı → 200
+- Commit hash: eae8ff0
+
 ### Task 4: IAuthService Arayüzü ve AuthService İskeleti ✅
 - **Tarih:** 2026-05-01
 - **Oluşturulan dosyalar:**
@@ -87,6 +94,14 @@
 - **Commit Hash:** 1aa1c6f
 - **Commit Mesajı:** "feat: IAuthService arayüzü ve AuthService iskeleti eklendi"
 - **Not:** AuthService Task 9'da SQL ile tamamlanacak
+
+### Task 8: Me Endpoint (TDD) ✅
+- Tarih: 2026-05-01
+- Test: Me_GecerliToken_200DönerVeKullaniciBilgisi ✅
+- Toplam test: 6/6 geçti (UnitTest1 şablon testi silindi)
+- Implementation: AuthController.Me() async metod, ClaimTypes.NameIdentifier'dan user ID çekme, KullaniciBul servis çağrısı, başarılı → 200 OK + TuketiciDto
+- Commit hash: 22211ff
+- Commit Mesajı: "feat: AuthController Me endpoint + testler eklendi"
 
 ## Mevcut Dosya Yapısı
 
@@ -146,13 +161,16 @@ C:\Users\user\Desktop\tazekalsin\
 | Register_SifreCokKisa_400Doner | ✅ Passed |
 | Register_EmailZatenVar_409Doner | ✅ Passed |
 | Register_GecerliIstek_201Doner | ✅ Passed |
+| Login_YanlisKimlik_401Doner | ✅ Passed |
+| Login_DogruKimlik_200Doner | ✅ Passed |
+| Me_GecerliToken_200DönerVeKullaniciBilgisi | ✅ Passed |
 
-Toplam: 3/3 geçti. Süre: ~492 ms
+Toplam: 6/6 geçti. Süre: ~112 ms
 
 ## Kaldığımız Yer
 
-- **Son Tamamlanan:** Task 6 - Register Endpoint (TDD)
-- **Sıradaki:** Task 7 - Login Endpoint (TDD)
+- **Son Tamamlanan:** Task 8 - Me Endpoint (TDD)
+- **Sıradaki:** Task 9 - AuthService SQL Implementasyonu
 
 ## Notlar
 

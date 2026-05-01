@@ -4,6 +4,12 @@ Bu rapor, yazılımcı olmayan ekip üyelerine projedeki ilerlemeden basit ve an
 
 ## Son Task Özeti
 
+### Task 8 — "Ben Kimim?" Endpoint'i Eklendi ✅
+"Hesabım" özelliği yazıldı. JWT token ile istek atıldığında kullanıcı bilgilerini (ad soyad, email, kurtarılan gıda kg) döndürüyor. Token yoksa erişim reddediliyor. 1 yeni test yazıldı ve geçti.
+
+### Task 7 — Giriş Endpoint'i Eklendi ✅
+"Giriş yap" özelliği yazıldı. Yanlış email/şifre → 401 (erişim reddedildi). Doğru bilgiler → 200 (başarılı, token döner). 2 yeni test yazıldı ve geçti.
+
 ### Task 6 — Kayıt Endpoint'i ve Testler Eklendi ✅
 "Kayıt ol" özelliği yazıldı. Önce testler yazıldı (TDD yöntemi) — yani önce "ne bekliyoruz" tanımlandı, sonra kod yazıldı. 3 test: kısa şifre reddi, mevcut email reddi, başarılı kayıt. Hepsi geçti.
 
@@ -56,8 +62,8 @@ Bilgisayarda "TazeKalsin.API" adında bir yazılım projesi açıldı. İçine �
 
 ## Kaldığımız Yer
 
-- **Son adım:** Task 6 tamamlandı
-- **Bir sonraki adım:** Task 7 (giriş endpoint'i)
+- **Son adım:** Task 8 tamamlandı
+- **Bir sonraki adım:** Task 9 (gerçek veritabanı kodları)
 
 ## Zaman Çizelgesi
 
@@ -68,6 +74,8 @@ Bilgisayarda "TazeKalsin.API" adında bir yazılım projesi açıldı. İçine �
 - **Task 4 Tamamlanma:** 2026-05-01
 - **Task 5 Tamamlanma:** 2026-05-01
 - **Task 6 Tamamlanma:** 2026-05-01
+- **Task 7 Tamamlanma:** 2026-05-01
+- **Task 8 Tamamlanma:** 2026-05-01
 
 ---
 
