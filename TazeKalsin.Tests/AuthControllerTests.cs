@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using System.Security.Claims;
 using TazeKalsin.API.Controllers;
 using TazeKalsin.API.Models;
 using TazeKalsin.API.Services;
@@ -92,5 +93,35 @@ public class AuthControllerTests
         var result = await _controller.Login(request);
 
         Assert.IsType<OkObjectResult>(result);
+    }
+
+    [Fact]
+    public async Task Me_GecerliToken_200DönerVeKullaniciBilgisi()
+    {
+        var expectedUser = new TuketiciDto
+        {
+            Tuketici_ID = 42,
+            Ad_Soyad = "Test Kullanıcı",
+            Email = "test@test.com",
+            Kurtarilan_Gida_Kg = 1.5
+        };
+        _mockService.Setup(s => s.KullaniciBul(42)).ReturnsAsync(expectedUser);
+
+        var claims = new List<Claim> { new Claim(ClaimTypes.NameIdentifier, "42") };
+        var identity = new System.Security.Principal.GenericIdentity("test@test.com");
+        identity.AddClaims(claims);
+        _controller.ControllerContext = new ControllerContext
+        {
+            HttpContext = new Microsoft.AspNetCore.Http.DefaultHttpContext
+            {
+                User = new System.Security.Claims.ClaimsPrincipal(identity)
+            }
+        };
+
+        var result = await _controller.Me();
+
+        var ok = Assert.IsType<OkObjectResult>(result);
+        var dto = Assert.IsType<TuketiciDto>(ok.Value);
+        Assert.Equal(42, dto.Tuketici_ID);
     }
 }

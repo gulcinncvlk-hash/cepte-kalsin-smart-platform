@@ -42,6 +42,15 @@ public class AuthController : ControllerBase
 
     [Authorize]
     [HttpGet("me")]
-    public Task<IActionResult> Me()
-        => throw new NotImplementedException();
+    public async Task<IActionResult> Me()
+    {
+        var idClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (idClaim == null || !int.TryParse(idClaim, out var tuketiciId))
+            return Unauthorized();
+
+        var user = await _authService.KullaniciBul(tuketiciId);
+        if (user == null) return NotFound();
+
+        return Ok(user);
+    }
 }
