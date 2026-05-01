@@ -12,7 +12,7 @@
 | Task 6: Register Endpoint (TDD) | ✅ Tamamlandı | 2026-05-01 |
 | Task 7: Login Endpoint (TDD) | ✅ Tamamlandı | 2026-05-01 |
 | Task 8: Me Endpoint (TDD) | ✅ Tamamlandı | 2026-05-01 |
-| Task 9: AuthService SQL Implementasyonu | ⏳ Başlanmadı | - |
+| Task 9: AuthService SQL Implementasyonu | ✅ Tamamlandı | 2026-05-01 |
 | Task 10: Swagger Uçtan Uca Test | ⏳ Başlanmadı | - |
 
 ## Tamamlanan Tasklar
@@ -103,6 +103,19 @@
 - Commit hash: 22211ff
 - Commit Mesajı: "feat: AuthController Me endpoint + testler eklendi"
 
+### Task 9: AuthService SQL Implementasyonu ✅
+- Tarih: 2026-05-01
+- Güncellenen: TazeKalsin.API/Services/AuthService.cs
+- Implement edilen metotlar:
+  - EmailMevcutMu: SELECT COUNT ile email kontrolü
+  - KayitOl: BCrypt hash + INSERT + SCOPE_IDENTITY() + JWT
+  - GirisYap: SELECT + BCrypt.Verify + JWT
+  - KullaniciBul: SELECT + TuketiciDto mapping
+  - TokenUret: HS256, 7 gün, sub/email/name claim'leri
+- Test sonuçları: 6/6 hâlâ geçiyor (mock'lar etkilenmedi)
+- Build: succeeded
+- Commit hash: 7416ab5
+
 ## Mevcut Dosya Yapısı
 
 ```
@@ -169,8 +182,8 @@ Toplam: 6/6 geçti. Süre: ~112 ms
 
 ## Kaldığımız Yer
 
-- **Son Tamamlanan:** Task 8 - Me Endpoint (TDD)
-- **Sıradaki:** Task 9 - AuthService SQL Implementasyonu
+- **Son Tamamlanan:** Task 9 - AuthService SQL Implementasyonu
+- **Sıradaki:** Task 10 - Swagger Uçtan Uca Test
 
 ## Notlar
 

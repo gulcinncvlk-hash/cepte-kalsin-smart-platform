@@ -4,6 +4,9 @@ Bu rapor, yazılımcı olmayan ekip üyelerine projedeki ilerlemeden basit ve an
 
 ## Son Task Özeti
 
+### Task 9 — Veritabanı Bağlantısı Yazıldı ✅
+Uygulamanın gerçek veritabanı ile konuşan kısmı tamamlandı. Artık kayıt ol, giriş yap ve kullanıcı bilgisi getir işlemleri SQL Server'a gerçek sorgular atıyor. Şifreler güvenli şekilde hashleniyor (BCrypt), JWT tokenlar üretiliyor.
+
 ### Task 8 — "Ben Kimim?" Endpoint'i Eklendi ✅
 "Hesabım" özelliği yazıldı. JWT token ile istek atıldığında kullanıcı bilgilerini (ad soyad, email, kurtarılan gıda kg) döndürüyor. Token yoksa erişim reddediliyor. 1 yeni test yazıldı ve geçti.
 
@@ -62,8 +65,8 @@ Bilgisayarda "TazeKalsin.API" adında bir yazılım projesi açıldı. İçine �
 
 ## Kaldığımız Yer
 
-- **Son adım:** Task 8 tamamlandı
-- **Bir sonraki adım:** Task 9 (gerçek veritabanı kodları)
+- **Son adım:** Task 9 tamamlandı
+- **Bir sonraki adım:** Task 10 (Swagger ile gerçek test)
 
 ## Zaman Çizelgesi
 
@@ -76,6 +79,7 @@ Bilgisayarda "TazeKalsin.API" adında bir yazılım projesi açıldı. İçine �
 - **Task 6 Tamamlanma:** 2026-05-01
 - **Task 7 Tamamlanma:** 2026-05-01
 - **Task 8 Tamamlanma:** 2026-05-01
+- **Task 9 Tamamlanma:** 2026-05-01
 
 ---
 
