@@ -1,0 +1,26 @@
+# .NET Build çıktıları
+bin/
+obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# NuGet
+*.nupkg
+packages/
+
+# Ortam ve gizli bilgiler
+appsettings.Development.json
+.env
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Claude Code
+.claude/
+
+# Proje klasörleri (repoda gözükmesin)
+docs/
