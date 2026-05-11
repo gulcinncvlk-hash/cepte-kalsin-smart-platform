@@ -50,6 +50,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IMarketService, MarketService>();
 builder.Services.AddScoped<IKategoriService, KategoriService>();
+builder.Services.AddScoped<IUrunService, UrunService>();
 
 var app = builder.Build();
 
