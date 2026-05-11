@@ -52,6 +52,7 @@ builder.Services.AddScoped<IMarketService, MarketService>();
 builder.Services.AddScoped<IKategoriService, KategoriService>();
 builder.Services.AddScoped<IUrunService, UrunService>();
 builder.Services.AddScoped<IPaketService, PaketService>();
+builder.Services.AddScoped<IRezervasyonService, RezervasyonService>();
 
 var app = builder.Build();
 
