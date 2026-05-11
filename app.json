@@ -1,30 +1,62 @@
 {
   "expo": {
-    "name": "CepteKalsin_App",
-    "slug": "CepteKalsin_App",
+    "name": "CepteKalsin",
+    "slug": "ceptekalsin",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "newArchEnabled": true,
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#094a3a"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ceptekalsin.app",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Yakınımdaki marketleri görmek için konumunuza ihtiyacımız var.",
+        "NSLocationAlwaysUsageDescription": "SKT yaklaşan ürünler için konumunuza ihtiyacımız var.",
+        "NSUserNotificationUsageDescription": "İndirim ve SKT bildirimleri için izin gereklidir."
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#094a3a"
       },
-      "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "package": "com.ceptekalsin.app",
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "RECEIVE_BOOT_COMPLETED",
+        "VIBRATE",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Yakınımdaki marketleri görmek için konumunuza ihtiyacımız var."
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/icon.png",
+          "color": "#1D9E75"
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "fccc554b-3145-4fc9-885a-7c05af66632e"
+      }
     }
   }
 }
