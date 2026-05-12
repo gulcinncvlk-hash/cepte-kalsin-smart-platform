@@ -53,6 +53,9 @@ builder.Services.AddScoped<IKategoriService, KategoriService>();
 builder.Services.AddScoped<IUrunService, UrunService>();
 builder.Services.AddScoped<IPaketService, PaketService>();
 builder.Services.AddScoped<IRezervasyonService, RezervasyonService>();
+builder.Services.AddScoped<ISatisService, SatisService>();
+builder.Services.AddScoped<IFavoriService, FavoriService>();
+builder.Services.AddScoped<IBildirimService, BildirimService>();
 
 var app = builder.Build();
 
