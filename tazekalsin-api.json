@@ -1,132 +1,69 @@
-{
+﻿{
   "openapi": "3.0.1",
-  "info": {
-    "title": "TazeKalsin API",
-    "version": "v1"
-  },
+  "info": { "title": "TazeKalsin API", "version": "v1" },
   "paths": {
-    "/api/auth/register": {
-      "post": {
-        "tags": [
-          "Auth"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RegisterRequest"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RegisterRequest"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/RegisterRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
+    "/api/auth/register": { "post": { "tags": ["Auth"], "summary": "Yeni tuketici kaydi", "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/RegisterRequest" } } } }, "responses": { "201": { "description": "Kayit basarili", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/AuthResponse" } } } }, "400": { "description": "Sifre cok kisa" }, "409": { "description": "E-posta zaten kayitli" } } } },
+    "/api/auth/login": { "post": { "tags": ["Auth"], "summary": "Giris yap", "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/LoginRequest" } } } }, "responses": { "200": { "description": "Giris basarili", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/AuthResponse" } } } }, "401": { "description": "Kimlik bilgileri hatali" } } } },
+    "/api/auth/me": { "get": { "tags": ["Auth"], "summary": "Oturum acmis kullanici bilgisi", "security": [{ "Bearer": [] }], "responses": { "200": { "description": "OK", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/TuketiciDto" } } } }, "401": { "description": "Kimlik dogrulanmadi" }, "404": { "description": "Kullanici bulunamadi" } } } },
+    "/api/markets": { "get": { "tags": ["Market"], "summary": "Onaylt marketleri listele", "responses": { "200": { "description": "Market listesi", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/MarketDto" } } } } } } } },
+    "/api/markets/{id}": { "get": { "tags": ["Market"], "summary": "Market detayi", "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }], "responses": { "200": { "description": "OK", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/MarketDto" } } } }, "404": { "description": "Market bulunamadi" } } } },
+    "/api/markets/basvuru": { "post": { "tags": ["Market"], "summary": "Market basvurusu olustur", "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/MarketBasvuruRequest" } } } }, "responses": { "201": { "description": "Basvuru alindi" } } } },
+    "/api/markets/basvuru/{basvuruId}/belge": { "post": { "tags": ["Market"], "summary": "Basvuruya belge ekle (multipart)", "parameters": [{ "name": "basvuruId", "in": "path", "required": true, "schema": { "type": "integer" } }], "requestBody": { "required": true, "content": { "multipart/form-data": { "schema": { "type": "object", "properties": { "dosya": { "type": "string", "format": "binary" } } } } } }, "responses": { "201": { "description": "Belge eklendi" }, "400": { "description": "Dosya gonderilmedi" } } } },
+    "/api/markets/basvurular": { "get": { "tags": ["Market"], "summary": "Tum basvurulari listele (admin)", "security": [{ "Bearer": [] }], "responses": { "200": { "description": "Basvuru listesi" } } } },
+    "/api/kategoriler": { "get": { "tags": ["Kategori"], "summary": "Tum kategorileri listele", "responses": { "200": { "description": "Kategori listesi", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/KategoriDto" } } } } } } } },
+    "/api/urunler/market/{marketId}": { "get": { "tags": ["Urun"], "summary": "Markete ait urunler (stokta, SKT sirali)", "parameters": [{ "name": "marketId", "in": "path", "required": true, "schema": { "type": "integer" } }], "responses": { "200": { "description": "Urun listesi", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/UrunDto" } } } } } } } },
+    "/api/urunler/skt-yakin": { "get": { "tags": ["Urun"], "summary": "SKT yaklasan urunler", "parameters": [{ "name": "gun", "in": "query", "schema": { "type": "integer", "default": 3, "minimum": 1, "maximum": 30 } }], "responses": { "200": { "description": "Urun listesi", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/UrunDto" } } } } }, "400": { "description": "Gun 1-30 araliginda olmalidir" } } } },
+    "/api/urunler/{id}": {
+      "get": { "tags": ["Urun"], "summary": "Urun detayi", "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }], "responses": { "200": { "description": "OK", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UrunDto" } } } }, "404": { "description": "Urun bulunamadi" } } },
+      "put": { "tags": ["Urun"], "summary": "Urun guncelle (kismi)", "security": [{ "Bearer": [] }], "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }], "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UrunGuncelleRequest" } } } }, "responses": { "200": { "description": "Guncellendi" }, "400": { "description": "Gecersiz fiyat" }, "401": { "description": "Kimlik dogrulanmadi" }, "404": { "description": "Urun bulunamadi" } } }
     },
-    "/api/auth/login": {
-      "post": {
-        "tags": [
-          "Auth"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LoginRequest"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LoginRequest"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/LoginRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
+    "/api/urunler": { "post": { "tags": ["Urun"], "summary": "Yeni urun ekle", "security": [{ "Bearer": [] }], "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UrunEkleRequest" } } } }, "responses": { "201": { "description": "Urun eklendi", "content": { "application/json": { "schema": { "type": "object", "properties": { "Urun_ID": { "type": "integer" } } } } } }, "400": { "description": "Gecersiz istek" }, "401": { "description": "Kimlik dogrulanmadi" } } } },
+    "/api/paketler": {
+      "get": { "tags": ["Paket"], "summary": "Aktif surpriz kutulari listele", "responses": { "200": { "description": "Paket listesi", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/PaketDto" } } } } } } },
+      "post": { "tags": ["Paket"], "summary": "Yeni surpriz kutu olustur", "security": [{ "Bearer": [] }], "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/PaketOlusturRequest" } } } }, "responses": { "201": { "description": "Paket olusturuldu", "content": { "application/json": { "schema": { "type": "object", "properties": { "Paket_ID": { "type": "integer" } } } } } }, "400": { "description": "Bos ad, yanlis fiyat veya sifir stok" }, "401": { "description": "Kimlik dogrulanmadi" } } }
     },
-    "/api/auth/me": {
-      "get": {
-        "tags": [
-          "Auth"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    }
+    "/api/paketler/{id}": { "get": { "tags": ["Paket"], "summary": "Paket detayi (icindeki urunlerle)", "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }], "responses": { "200": { "description": "OK", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/PaketDto" } } } }, "404": { "description": "Paket bulunamadi" } } } },
+    "/api/paketler/{id}/urunler": { "post": { "tags": ["Paket"], "summary": "Pakete urun ekle veya guncelle (UPSERT)", "security": [{ "Bearer": [] }], "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }], "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/PaketUrunEkleRequest" } } } }, "responses": { "201": { "description": "Urun pakete eklendi" }, "400": { "description": "Miktar en az 1 olmalidir" }, "401": { "description": "Kimlik dogrulanmadi" } } } },
+    "/api/rezervasyonlar": {
+      "post": { "tags": ["Rezervasyon"], "summary": "Rezervasyon yap (urun veya paket)", "security": [{ "Bearer": [] }], "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/RezervasyonYapRequest" } } } }, "responses": { "201": { "description": "Rezervasyon olusturuldu (PIN kodu doner)", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/RezervasyonDto" } } } }, "400": { "description": "Gecersiz istek" }, "401": { "description": "Kimlik dogrulanmadi" }, "409": { "description": "Stok yetersiz" } } },
+      "get": { "tags": ["Rezervasyon"], "summary": "Kullanicinin rezervasyonlarini listele", "security": [{ "Bearer": [] }], "responses": { "200": { "description": "Rezervasyon listesi", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/RezervasyonDto" } } } } }, "401": { "description": "Kimlik dogrulanmadi" } } }
+    },
+    "/api/rezervasyonlar/{id}/iptal": { "patch": { "tags": ["Rezervasyon"], "summary": "Bekleyen rezervasyonu iptal et", "security": [{ "Bearer": [] }], "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }], "responses": { "200": { "description": "Iptal edildi" }, "401": { "description": "Kimlik dogrulanmadi" }, "404": { "description": "Bulunamadi veya tamamlanmis" } } } },
+    "/api/satis/onayla": { "post": { "tags": ["Satis"], "summary": "PIN ile satisi onayla (auth gerekmez)", "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/PinRequest" } } } }, "responses": { "200": { "description": "Satis onaylandi" }, "400": { "description": "Gecersiz veya bos PIN" } } } },
+    "/api/satis/tamamla": { "post": { "tags": ["Satis"], "summary": "PIN ile satisi tamamla (auth gerekmez)", "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/PinRequest" } } } }, "responses": { "200": { "description": "Satis tamamlandi" }, "400": { "description": "Gecersiz veya bos PIN" } } } },
+    "/api/favoriler": { "get": { "tags": ["Favori"], "summary": "Kullanicinin favori urunleri", "security": [{ "Bearer": [] }], "responses": { "200": { "description": "Favori listesi", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/UrunDto" } } } } }, "401": { "description": "Kimlik dogrulanmadi" } } } },
+    "/api/favoriler/{urunId}": {
+      "post": { "tags": ["Favori"], "summary": "Urunu favorilere ekle (idempotent)", "security": [{ "Bearer": [] }], "parameters": [{ "name": "urunId", "in": "path", "required": true, "schema": { "type": "integer" } }], "responses": { "201": { "description": "Favorilere eklendi" }, "401": { "description": "Kimlik dogrulanmadi" } } },
+      "delete": { "tags": ["Favori"], "summary": "Urunu favorilerden kaldir", "security": [{ "Bearer": [] }], "parameters": [{ "name": "urunId", "in": "path", "required": true, "schema": { "type": "integer" } }], "responses": { "200": { "description": "Favorilerden kaldirildi" }, "401": { "description": "Kimlik dogrulanmadi" }, "404": { "description": "Favori bulunamadi" } } }
+    },
+    "/api/bildirimler": { "get": { "tags": ["Bildirim"], "summary": "Kullanicinin bildirimleri (tarihe gore azalan)", "security": [{ "Bearer": [] }], "responses": { "200": { "description": "Bildirim listesi", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/BildirimDto" } } } } }, "401": { "description": "Kimlik dogrulanmadi" } } } },
+    "/api/bildirimler/sayac": { "get": { "tags": ["Bildirim"], "summary": "Okunmamis bildirim sayisi", "security": [{ "Bearer": [] }], "responses": { "200": { "description": "OK", "content": { "application/json": { "schema": { "type": "object", "properties": { "okunmamis": { "type": "integer" } } } } } }, "401": { "description": "Kimlik dogrulanmadi" } } } },
+    "/api/bildirimler/{id}/oku": { "patch": { "tags": ["Bildirim"], "summary": "Bildirimi okundu olarak isaretle", "security": [{ "Bearer": [] }], "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }], "responses": { "200": { "description": "Okundu isaretlendi" }, "401": { "description": "Kimlik dogrulanmadi" }, "404": { "description": "Bildirim bulunamadi" } } } }
   },
   "components": {
     "schemas": {
-      "LoginRequest": {
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string",
-            "nullable": true
-          },
-          "sifre": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "RegisterRequest": {
-        "type": "object",
-        "properties": {
-          "ad_Soyad": {
-            "type": "string",
-            "nullable": true
-          },
-          "email": {
-            "type": "string",
-            "nullable": true
-          },
-          "sifre": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      }
+      "LoginRequest": { "type": "object", "properties": { "email": { "type": "string", "nullable": true }, "sifre": { "type": "string", "nullable": true } }, "additionalProperties": false },
+      "RegisterRequest": { "type": "object", "properties": { "ad_Soyad": { "type": "string", "nullable": true }, "email": { "type": "string", "nullable": true }, "sifre": { "type": "string", "nullable": true, "minLength": 8 } }, "additionalProperties": false },
+      "AuthResponse": { "type": "object", "properties": { "token": { "type": "string" }, "ad_Soyad": { "type": "string" }, "email": { "type": "string" } } },
+      "TuketiciDto": { "type": "object", "properties": { "tuketici_ID": { "type": "integer" }, "ad_Soyad": { "type": "string" }, "email": { "type": "string" }, "kurtarilan_Gida_Kg": { "type": "number", "format": "double" } } },
+      "MarketDto": { "type": "object", "properties": { "market_ID": { "type": "integer" }, "market_Adi": { "type": "string" }, "adres": { "type": "string", "nullable": true }, "konum_Enlem": { "type": "number", "nullable": true }, "konum_Boylam": { "type": "number", "nullable": true }, "acilis_Saati": { "type": "string", "nullable": true }, "kapanis_Saati": { "type": "string", "nullable": true } } },
+      "MarketBasvuruRequest": { "type": "object", "properties": { "zincir_Adi": { "type": "string" }, "sube_Adi": { "type": "string" }, "sehir": { "type": "string" }, "ilce": { "type": "string" }, "yetkili_Ad_Soyad": { "type": "string" }, "telefon": { "type": "string" }, "email": { "type": "string" } } },
+      "KategoriDto": { "type": "object", "properties": { "kategori_ID": { "type": "integer" }, "kategori_Adi": { "type": "string" } } },
+      "UrunDto": { "type": "object", "properties": { "urun_ID": { "type": "integer" }, "market_ID": { "type": "integer" }, "urun_Adi": { "type": "string" }, "normal_Fiyat": { "type": "number" }, "indirimli_Fiyat": { "type": "number" }, "son_Tuketim_Tarihi": { "type": "string", "format": "date-time" }, "stok_Miktari": { "type": "integer" }, "barkod": { "type": "string", "nullable": true }, "kategori_ID": { "type": "integer", "nullable": true }, "kategori_Adi": { "type": "string", "nullable": true }, "skt": { "type": "string", "format": "date-time", "nullable": true } } },
+      "UrunEkleRequest": { "type": "object", "properties": { "market_ID": { "type": "integer" }, "urun_Adi": { "type": "string" }, "normal_Fiyat": { "type": "number" }, "indirimli_Fiyat": { "type": "number" }, "son_Tuketim_Tarihi": { "type": "string", "format": "date-time" }, "stok_Miktari": { "type": "integer", "minimum": 0 }, "barkod": { "type": "string", "nullable": true }, "kategori_ID": { "type": "integer", "nullable": true }, "skt": { "type": "string", "format": "date-time", "nullable": true } } },
+      "UrunGuncelleRequest": { "type": "object", "properties": { "urun_Adi": { "type": "string", "nullable": true }, "normal_Fiyat": { "type": "number", "nullable": true }, "indirimli_Fiyat": { "type": "number", "nullable": true }, "son_Tuketim_Tarihi": { "type": "string", "format": "date-time", "nullable": true }, "stok_Miktari": { "type": "integer", "nullable": true }, "barkod": { "type": "string", "nullable": true }, "kategori_ID": { "type": "integer", "nullable": true }, "skt": { "type": "string", "format": "date-time", "nullable": true } } },
+      "PaketDto": { "type": "object", "properties": { "paket_ID": { "type": "integer" }, "market_ID": { "type": "integer" }, "paket_Adi": { "type": "string" }, "normal_Fiyat": { "type": "number" }, "indirimli_Fiyat": { "type": "number" }, "stok_Adedi": { "type": "integer" }, "son_Satis_Saati": { "type": "string", "format": "date-time" }, "urunler": { "type": "array", "items": { "$ref": "#/components/schemas/PaketUrunDto" } } } },
+      "PaketUrunDto": { "type": "object", "properties": { "urun_ID": { "type": "integer" }, "urun_Adi": { "type": "string" }, "miktar": { "type": "integer" } } },
+      "PaketOlusturRequest": { "type": "object", "properties": { "market_ID": { "type": "integer" }, "paket_Adi": { "type": "string" }, "normal_Fiyat": { "type": "number" }, "indirimli_Fiyat": { "type": "number" }, "stok_Adedi": { "type": "integer", "minimum": 1 }, "son_Satis_Saati": { "type": "string", "format": "date-time" } } },
+      "PaketUrunEkleRequest": { "type": "object", "properties": { "urun_ID": { "type": "integer" }, "miktar": { "type": "integer", "minimum": 1, "default": 1 } } },
+      "RezervasyonYapRequest": { "type": "object", "properties": { "urun_ID": { "type": "integer", "nullable": true }, "paket_ID": { "type": "integer", "nullable": true }, "miktar": { "type": "integer", "minimum": 1 } } },
+      "RezervasyonDto": { "type": "object", "properties": { "islem_ID": { "type": "integer" }, "tuketici_ID": { "type": "integer" }, "urun_ID": { "type": "integer", "nullable": true }, "paket_ID": { "type": "integer", "nullable": true }, "miktar": { "type": "integer" }, "olusturma_Zamani": { "type": "string", "format": "date-time", "nullable": true }, "pIN_Kodu": { "type": "string" }, "durum": { "type": "string", "enum": ["Bekliyor", "Tamamlandi", "Iptal"], "nullable": true }, "alinan_Fiyat": { "type": "number", "nullable": true }, "edilen_Tasarruf": { "type": "number", "nullable": true } } },
+      "PinRequest": { "type": "object", "properties": { "pIN_Kodu": { "type": "string" } } },
+      "BildirimDto": { "type": "object", "properties": { "bildirim_ID": { "type": "integer" }, "baslik": { "type": "string" }, "icerik": { "type": "string" }, "etiket": { "type": "string", "nullable": true }, "tarih": { "type": "string", "format": "date-time", "nullable": true }, "okundu_Mu": { "type": "boolean" } } }
     },
     "securitySchemes": {
-      "Bearer": {
-        "type": "apiKey",
-        "description": "JWT token girin. Örnek: Bearer eyJ...",
-        "name": "Authorization",
-        "in": "header"
-      }
+      "Bearer": { "type": "apiKey", "description": "JWT Authorization. Ornek: Bearer eyJ...", "name": "Authorization", "in": "header" }
     }
   },
-  "security": [
-    {
-      "Bearer": [ ]
-    }
-  ]
+  "security": [{ "Bearer": [] }]
 }
